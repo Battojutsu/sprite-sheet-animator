@@ -1,1 +1,4 @@
-import * as nodegui from '@nodegui/nodegui';
+import { UserInterface } from "./setup_commands";
+
+const ui = new UserInterface();
+ui.show_window();
