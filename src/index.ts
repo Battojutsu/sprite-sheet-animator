@@ -1,4 +1,3 @@
-import { UserInterface } from "./setup_commands";
-
+import { UserInterface } from "./UserInterface";
 const ui = new UserInterface();
 ui.show_window();
