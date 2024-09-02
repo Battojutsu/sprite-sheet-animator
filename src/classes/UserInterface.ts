@@ -29,6 +29,7 @@ export class UserInterface extends FileEditor {
 			const selectedFiles = fileDialog.selectedFiles();
 
 			this.load_tileset(selectedFiles[0]);
+			this.display_alternative_layout();
 		});
 	}
 
