@@ -2,6 +2,7 @@
 import {
 	QFileDialog,
 	FileMode,
+	AspectRatioMode
 } from "@nodegui/nodegui";
 import * as fs from "fs";
 import { FileEditor } from "./FileEditor";
@@ -31,6 +32,9 @@ export class UserInterface extends FileEditor {
 
 	load_tileset(image_url: string): void {
 		this.image.load(image_url);
+
+		// Scale image to manageable size
+		this.image = this.image.scaled(800,600, AspectRatioMode.KeepAspectRatio);
 		this.image_label.setPixmap(this.image);
 		this.image_label.update();
 	}

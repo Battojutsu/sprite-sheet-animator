@@ -15,7 +15,7 @@ export class Interface {
 	 * Show the window.
 	 */
 	show_window(): void {
-		this.window.showMaximized();
+		this.window.show();
 	}
 
 	/**

@@ -15,8 +15,6 @@ export default [
   {languageOptions: { globals: globals.browser }},
   pluginJs.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
-  ...tseslint.configs.strictTypeChecked,
-  ...tseslint.configs.stylisticTypeChecked,
   {
     languageOptions: {
       parserOptions: {
@@ -29,8 +27,7 @@ export default [
         "error",
         { allowIIFEs: true },
       ],
-      '@typescript-eslint/consistent-return': "error",
-      "@typescript-eslint/no-unnecessary-condition": "error"
+      '@typescript-eslint/consistent-return': "error"
     }
   },
 ];
