@@ -1,9 +1,5 @@
 // This file is used to abstract some of the setup.
-import {
-	QFileDialog,
-	FileMode,
-	AspectRatioMode
-} from "@nodegui/nodegui";
+import { QFileDialog, FileMode, AspectRatioMode } from "@nodegui/nodegui";
 import * as fs from "fs";
 import { FileEditor } from "./FileEditor";
 
@@ -13,7 +9,8 @@ export class UserInterface extends FileEditor {
 	constructor() {
 		super("Sprite Sheet Animator");
 		this.style_sheet = fs.readFileSync(`${__dirname}/style.css`).toString();
-		this.display_file_layout();
+		this.window.setStyleSheet(this.style_sheet);
+		this.display_alternative_layout();
 		this.add_button_action();
 	}
 
@@ -26,7 +23,6 @@ export class UserInterface extends FileEditor {
 			const selectedFiles = fileDialog.selectedFiles();
 
 			this.load_tileset(selectedFiles[0]);
-			this.display_alternative_layout();
 		});
 	}
 
@@ -34,7 +30,11 @@ export class UserInterface extends FileEditor {
 		this.image.load(image_url);
 
 		// Scale image to manageable size
-		this.image = this.image.scaled(800,600, AspectRatioMode.KeepAspectRatio);
+		this.image = this.image.scaled(
+			800,
+			600,
+			AspectRatioMode.KeepAspectRatio
+		);
 		this.image_label.setPixmap(this.image);
 		this.image_label.update();
 	}

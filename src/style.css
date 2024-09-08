@@ -1,6 +1,8 @@
-#central_widget {
-	background-color: gray;
-}
 #loader_btn {
-	background-color: green;
+	color: white;
+	background-color: "#125510";
+}
+QLineEdit {
+	color: white;
+	background-color: "#125510";
 }
