@@ -6,7 +6,8 @@
         "moduleResolution": "node",
         "sourceMap": true,
         "outDir": "build",
-        "rootDir": "src"
+        "rootDir": "src",
+        "strict": true
     },
     "include": [
         "./src/**/*.ts"
