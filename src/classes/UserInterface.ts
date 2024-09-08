@@ -11,16 +11,12 @@ export class UserInterface extends FileEditor {
 
 	constructor() {
 		super("Sprite Sheet Animator");
-		this.build_style_sheet();
+		this.style_sheet = fs.readFileSync(`${__dirname}/style.css`).toString();
 		this.display_file_layout();
 		this.add_button_action();
 	}
 
-	build_style_sheet() {
-		this.style_sheet = fs.readFileSync(`${__dirname}/style.css`).toString();
-	}
-
-	add_button_action() {
+	add_button_action(): void {
 		this.loader_button.addEventListener("clicked", () => {
 			const fileDialog = new QFileDialog();
 			fileDialog.setFileMode(FileMode.AnyFile);
@@ -33,7 +29,7 @@ export class UserInterface extends FileEditor {
 		});
 	}
 
-	load_tileset(image_url: string) {
+	load_tileset(image_url: string): void {
 		this.image.load(image_url);
 		this.image_label.setPixmap(this.image);
 		this.image_label.update();

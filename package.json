@@ -5,7 +5,8 @@
   "scripts": {
     "build": "tsc && npm run bundle && cp src/style.css ./dist/style.css",
     "bundle": "esbuild build/index.js --bundle --sourcemap --outfile=dist/index.js --platform=node --external:@nodegui/nodegui \"--external:nodegui-plugin-*\"",
-    "run": "qode dist/index.js"
+    "run": "qode dist/index.js",
+    "lint": "eslint"
   },
   "repository": {
     "type": "git",
@@ -31,14 +32,15 @@
     "source-map-support": "^0.5.21"
   },
   "devDependencies": {
-    "@eslint/js": "^9.9.0",
+    "@eslint/compat": "^1.1.1",
+    "@eslint/js": "^9.10.0",
     "@types/node": "^22.4.1",
-    "@typescript-eslint/eslint-plugin": "^8.2.0",
-    "@typescript-eslint/parser": "^8.2.0",
+    "@typescript-eslint/eslint-plugin": "^8.4.0",
+    "@typescript-eslint/parser": "^8.4.0",
     "esbuild": "^0.23.1",
-    "eslint": "^9.9.0",
+    "eslint": "^9.10.0",
     "globals": "^15.9.0",
     "typescript": "^5.5.4",
-    "typescript-eslint": "^8.2.0"
+    "typescript-eslint": "^8.4.0"
   }
 }
