@@ -1,12 +1,11 @@
 import {
 	QPushButton,
-	FlexLayout,
 	QGridLayout,
 	QWidget,
 	QPixmap,
 	QLabel,
 	QSize,
-	QLayout,
+	QLayout
 } from "@nodegui/nodegui";
 import { Interface } from "./Interface";
 
@@ -34,8 +33,9 @@ export class FileEditor extends Interface {
 		const base_widget: QWidget = this.get_new_base_widget(
 			new QSize(640, 480)
 		);
-		base_widget.setLayout(new FlexLayout());
-		base_widget.layout()?.addWidget(this.loader_button);
+		base_widget.setLayout(new QGridLayout());
+		base_widget.layout()?.addWidget(this.loader_button, 1, 6);
+		base_widget.setMinimumWidth(600);
 
 		this.window.setCentralWidget(base_widget);
 	}
@@ -50,10 +50,11 @@ export class FileEditor extends Interface {
 			new QSize(1280, 720)
 		);
 		const grid_layout: QGridLayout = new QGridLayout();
-
 		base_widget.setLayout(grid_layout);
-		grid_layout.addWidget(this.image_label, 0, 0);
-		grid_layout.addWidget(this.loader_button, 0, 1);
+
+		grid_layout.addWidget(this.image_label, 0, 0, 7, 1);
+		//Setup toolbar right aligned
+		grid_layout.addWidget(this.loader_button, 6, 1);
 
 		this.window.setCentralWidget(base_widget);
 	}
@@ -76,7 +77,7 @@ export class FileEditor extends Interface {
 		const image_label = new QLabel();
 		const image = new QPixmap();
 		image_label.setPixmap(image);
-
+		
 		return [image_label, image];
 	}
 
