@@ -1,5 +1,11 @@
 // This file is used to abstract some of the setup.
-import { QFileDialog, FileMode, AspectRatioMode } from "@nodegui/nodegui";
+import {
+	QFileDialog,
+	FileMode,
+	AspectRatioMode,
+	WidgetEventTypes,
+	TransformationMode,
+} from "@nodegui/nodegui";
 import * as fs from "fs";
 import { FileEditor } from "./FileEditor";
 
@@ -12,6 +18,10 @@ export class UserInterface extends FileEditor {
 		this.window.setStyleSheet(this.style_sheet);
 		this.display_alternative_layout();
 		this.add_button_action();
+
+		this.window.addEventListener(WidgetEventTypes.Resize, () => {
+			this.#scaleImage();
+		});
 	}
 
 	add_button_action(): void {
@@ -26,16 +36,20 @@ export class UserInterface extends FileEditor {
 		});
 	}
 
+	#scaleImage(): void {
+		// Scale image to manageable size and store as a scaled_image file.
+		this.scaled_image = this.image.scaled(
+			this.image_label.width(),
+			this.image_label.height(),
+			AspectRatioMode.KeepAspectRatio,
+			TransformationMode.FastTransformation
+		);
+		this.image_label.setPixmap(this.scaled_image);
+		this.image_label.update();
+	}
+
 	load_tileset(image_url: string): void {
 		this.image.load(image_url);
-
-		// Scale image to manageable size
-		this.image = this.image.scaled(
-			800,
-			600,
-			AspectRatioMode.KeepAspectRatio
-		);
-		this.image_label.setPixmap(this.image);
-		this.image_label.update();
+		this.#scaleImage();
 	}
 }

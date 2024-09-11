@@ -4,9 +4,8 @@ import {
 	QWidget,
 	QPixmap,
 	QLabel,
-	QSize,
 	QLayout,
-	QLineEdit
+	QLineEdit,
 } from "@nodegui/nodegui";
 import { Interface } from "./Interface";
 
@@ -17,13 +16,15 @@ export class FileEditor extends Interface {
 	loader_button: QPushButton;
 	image_label: QLabel;
 	image: QPixmap;
+	scaled_image: QPixmap;
 	height_box: QLineEdit;
 	width_box: QLineEdit;
+	COLUMN_WIDTH: number = 100;
 
 	constructor(title: string) {
 		super(title);
 		this.loader_button = this.#build_loader_btn();
-		[this.image_label, this.image] = this.#build_image_label();
+		[this.image_label, this.image, this.scaled_image] = this.#build_image_label();
 		this.height_box = this.#build_QLineEdit();
 		this.width_box = this.#build_QLineEdit();
 	}
@@ -34,14 +35,11 @@ export class FileEditor extends Interface {
 	 */
 	display_alternative_layout(): void {
 		this.#clear_widgets();
-		const base_widget: QWidget = this.get_new_base_widget(
-			new QSize(1280, 720)
-		);
+		const base_widget: QWidget = this.get_new_base_widget();
 		const grid_layout: QGridLayout = new QGridLayout();
+
 		base_widget.setLayout(grid_layout);
-
 		grid_layout.addWidget(this.image_label, 0, 0, 8, 14);
-
 		
 		//Setup toolbar right aligned
 		grid_layout.addWidget(this.loader_button, 7, 16, 1, 1);
@@ -67,12 +65,12 @@ export class FileEditor extends Interface {
 	/**
 	 * private abstraction function to setup an image label.
 	 */
-	#build_image_label(): [QLabel, QPixmap] {
+	#build_image_label(): [QLabel, QPixmap, QPixmap] {
 		const image_label = new QLabel();
 		const image = new QPixmap();
 		image_label.setPixmap(image);
 		
-		return [image_label, image];
+		return [image_label, image, new QPixmap()];
 	}
 
 	/**
@@ -81,6 +79,7 @@ export class FileEditor extends Interface {
 
 	#build_QLineEdit(): QLineEdit {
 		const qpte = new QLineEdit();
+		qpte.setFixedWidth(this.COLUMN_WIDTH);
 		return qpte;
 	}
 
@@ -91,7 +90,7 @@ export class FileEditor extends Interface {
 		const loader_button = new QPushButton();
 		loader_button.setText("Load Tileset");
 		loader_button.setObjectName("loader_btn");
-		loader_button.setMaximumWidth(120);
+		loader_button.setFixedWidth(this.COLUMN_WIDTH);
 
 		return loader_button;
 	}
