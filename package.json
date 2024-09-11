@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Animate Sprite sheets and save in json",
   "scripts": {
-    "build": "tsc && npm run bundle && cp src/style.css ./dist/style.css",
+    "build": "tsc && npm run bundle && cp src/style.css ./dist/style.css && mkdir -p ./dist/media && cp src/media/90s.jpg ./dist/media/90s.jpg",
     "bundle": "esbuild build/index.js --bundle --sourcemap --outfile=dist/index.js --platform=node --external:@nodegui/nodegui \"--external:nodegui-plugin-*\"",
     "run": "qode dist/index.js",
     "lint": "eslint"
