@@ -6,6 +6,8 @@ import {
 	QLabel,
 	QLayout,
 	QLineEdit,
+	QPainter,
+	WidgetEventTypes
 } from "@nodegui/nodegui";
 import { Interface } from "./Interface";
 
@@ -27,6 +29,13 @@ export class FileEditor extends Interface {
 		[this.image_label, this.image, this.scaled_image] = this.#build_image_label();
 		this.height_box = this.#build_QLineEdit();
 		this.width_box = this.#build_QLineEdit();
+
+		this.image_label.addEventListener(WidgetEventTypes.Paint, () => {
+			const painter: QPainter = new QPainter(this.image_label);
+
+			painter.drawLine(0,0, 100, 100);
+			painter.end();
+		});
 	}
 
 	/**
@@ -68,7 +77,12 @@ export class FileEditor extends Interface {
 	#build_image_label(): [QLabel, QPixmap, QPixmap] {
 		const image_label = new QLabel();
 		const image = new QPixmap();
-		image_label.setPixmap(image);
+
+		//image_label.setPixmap(image);
+		
+		image_label.setMinimumWidth(800);
+		image_label.setMinimumHeight(600);
+		image_label.setObjectName("image_label");
 		
 		return [image_label, image, new QPixmap()];
 	}
