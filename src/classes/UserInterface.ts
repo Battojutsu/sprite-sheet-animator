@@ -37,15 +37,15 @@ export class UserInterface extends FileEditor {
 	}
 
 	#scaleImage(): void {
-		// Scale image to manageable size and store as a scaled_image file.
-		this.scaled_image = this.image.scaled(
-			this.image_label.width(),
-			this.image_label.height(),
-			AspectRatioMode.KeepAspectRatio,
-			TransformationMode.FastTransformation
-		);
-		this.image_label.setPixmap(this.scaled_image);
-		this.image_label.update();
+		if(this.is_qimage_defined(this.image)) {
+			// Scale image to manageable size and store as a scaled_image file.
+			this.scaled_image = this.image.scaled(
+				this.image_label.width(),
+				this.image_label.height(),
+				AspectRatioMode.KeepAspectRatio,
+				TransformationMode.FastTransformation
+			);
+		}
 	}
 
 	load_tileset(image_url: string): void {

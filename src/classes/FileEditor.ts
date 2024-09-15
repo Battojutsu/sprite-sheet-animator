@@ -33,7 +33,11 @@ export class FileEditor extends Interface {
 		this.image_label.addEventListener(WidgetEventTypes.Paint, () => {
 			const painter: QPainter = new QPainter(this.image_label);
 
-			painter.drawLine(0,0, 100, 100);
+			if(this.is_qimage_defined(this.scaled_image)) {
+				painter.drawPixmap(0, 0, this.scaled_image, 0, 0);
+				painter.drawLine(0, 0, this.scaled_image.width(), this.scaled_image.height());
+			}
+
 			painter.end();
 		});
 	}
@@ -78,8 +82,6 @@ export class FileEditor extends Interface {
 		const image_label = new QLabel();
 		const image = new QPixmap();
 
-		//image_label.setPixmap(image);
-		
 		image_label.setMinimumWidth(800);
 		image_label.setMinimumHeight(600);
 		image_label.setObjectName("image_label");
@@ -107,5 +109,12 @@ export class FileEditor extends Interface {
 		loader_button.setFixedWidth(this.COLUMN_WIDTH);
 
 		return loader_button;
+	}
+
+	/**
+	 * Rudimentary way of checking if an image has been loaded. Well, at least one with a pixel.
+	 */
+	is_qimage_defined(qimage: QPixmap): boolean {
+		return Boolean(qimage.height() && qimage.width());
 	}
 }
