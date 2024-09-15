@@ -1,16 +1,15 @@
-#loader_btn {
+#loader_button, #run_grid_button {
 	color: white;
-	/* background-color: "#125510"; */
+	background-color: "#125510";
 }
 QLineEdit {
 	color: white;
-	/* background-color: "#125510"; */
+	background-color: "#125510";
 }
 
 QMainWindow {
-	/* background-color: cornsilk; */
+	background-color: cornsilk;
 }
-#image_label {
-	border-width: 10px;
-	border-color: purple;
+#image_label, #width_label, #height_label {
+	color:black;
 }
