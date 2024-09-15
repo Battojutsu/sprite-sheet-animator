@@ -3,27 +3,50 @@ import {
 	QLineEdit,
 	QLabel,
 	QGridLayout,
-	QWidget
+	QWidget,
+	QPixmap
 } from "@nodegui/nodegui";
 
-import { FileEditor } from "./FileEditor"
+import { SpriteSheetEditor } from "./SpriteSheetEditor"
+import * as fs from "fs";
 
 /**
  * A class that structures and abstracts the widgets of the FileEditor Interface. This is heavily customized and designed for FileEditor.ts.
  */
-export class FileEditorWidgets {
+export class SpriteSheetEditorWidgets {
 	loader_button: QPushButton;
 	run_grid_button: QPushButton;
 	height_box: QLineEdit;
 	width_box: QLineEdit;
+	image_label: QLabel;
+	image: QPixmap;
+	scaled_image: QPixmap;
 	COLUMN_WIDTH: number = 100;
+	style_sheet: string;
 
-	constructor(host: FileEditor) {
+	constructor(host: SpriteSheetEditor) {
+		this.style_sheet = fs.readFileSync(`${__dirname}/style.css`).toString();
+		host.window.setStyleSheet(this.style_sheet);
 		this.loader_button = this.#build_loader_button();
 		this.run_grid_button = this.#build_run_grid_button();
 		this.height_box = this.#build_QLineEdit();
 		this.width_box = this.#build_QLineEdit();
+		[this.image_label, this.image, this.scaled_image] = this.#build_image_label();
 		this.setup_layout(host)
+	}
+
+	/**
+	 * private abstraction function to setup an image label.
+	 */
+	#build_image_label(): [QLabel, QPixmap, QPixmap] {
+		const image_label = new QLabel();
+		const image = new QPixmap();
+
+		image_label.setMinimumWidth(800);
+		image_label.setMinimumHeight(600);
+		image_label.setObjectName("image_label");
+		
+		return [image_label, image, new QPixmap()];
 	}
 
 	/**
@@ -80,7 +103,7 @@ export class FileEditorWidgets {
 	 * Setup the grid layout.
 	 * @param host reference to FileEditor
 	 */
-	setup_layout(host: FileEditor): void {
+	setup_layout(host: SpriteSheetEditor): void {
 		// Configure static items
 		const width_label: QLabel = this.#build_plain_label("width px", "width_label", 18);
 		const height_label = this.#build_plain_label("height px", "height_label", 18);
@@ -91,7 +114,7 @@ export class FileEditorWidgets {
 
 		// Begin alignment of widgets
 		base_widget.setLayout(grid_layout);
-		grid_layout.addWidget(host.image_label, 0, 0, 8, 14);
+		grid_layout.addWidget(this.image_label, 0, 0, 8, 14);
 
 		grid_layout.addWidget(height_label, 5, 15, 1, 1);
 		grid_layout.addWidget(width_label, 5, 16, 1, 1);

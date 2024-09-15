@@ -1,6 +1,6 @@
 # sprite-sheet-animator
 ![screenshot of sprite sheet animator](screen.png)
-Currently in active development.
+Currently in active development. Not accepting pull requests until first release is complete.
 Animate sprites and save to json.
 This is meant to configure an animation based on a sprite sheet. Then save the information; like time between frames and which frames to display into a JSON data structure so that you can allow someone to help you animate characters. Or allow people to add in custom animations into your games without 
 - [x] Create basic user interface

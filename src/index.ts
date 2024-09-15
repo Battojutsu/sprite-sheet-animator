@@ -1,5 +1,5 @@
-import { FileEditor } from "./classes/FileEditor";
+import { SpriteSheetEditor } from "./classes/SpriteSheetEditor";
 
-const sprite_editor = new FileEditor("Sprite Sheet Animator");
+const sprite_editor = new SpriteSheetEditor("Sprite Sheet Animator");
 
 sprite_editor.show_window();
