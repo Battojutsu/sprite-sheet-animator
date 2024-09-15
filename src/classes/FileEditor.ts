@@ -8,8 +8,13 @@ import {
 	QLineEdit,
 	QPainter,
 	WidgetEventTypes,
+	QFileDialog,
+	FileMode,
+	AspectRatioMode,
+	TransformationMode,
 } from "@nodegui/nodegui";
 import { Interface } from "./Interface";
+import * as fs from "fs";
 
 /**
  * A specialized UserInterface for opening a file.
@@ -23,6 +28,7 @@ export class FileEditor extends Interface {
 	height_box: QLineEdit;
 	width_box: QLineEdit;
 	COLUMN_WIDTH: number = 100;
+	style_sheet: string;
 
 	constructor(title: string) {
 		super(title);
@@ -32,6 +38,14 @@ export class FileEditor extends Interface {
 		this.height_box = this.#build_QLineEdit();
 		this.width_box = this.#build_QLineEdit();
 		this.configure_image_grid();
+		this.style_sheet = fs.readFileSync(`${__dirname}/style.css`).toString();
+		this.window.setStyleSheet(this.style_sheet);
+		this.display_alternative_layout();
+		this.add_button_action();
+
+		this.window.addEventListener(WidgetEventTypes.Resize, () => {
+			this.#scaleImage();
+		});
 	}
 
 	/**
@@ -195,5 +209,38 @@ export class FileEditor extends Interface {
 	 */
 	is_qimage_defined(qimage: QPixmap): boolean {
 		return Boolean(qimage.height() && qimage.width());
+	}
+
+	add_button_action(): void {
+		this.loader_button.addEventListener("clicked", () => {
+			const fileDialog = new QFileDialog();
+			fileDialog.setFileMode(FileMode.AnyFile);
+			fileDialog.setNameFilter("Images (*.png *.bmp *.jpg)");
+			fileDialog.exec();
+			const selectedFiles = fileDialog.selectedFiles();
+
+			this.load_tileset(selectedFiles[0]);
+		});
+
+		this.run_grid_button.addEventListener("clicked", () => {
+			this.image_label.update();
+		});
+	}
+
+	#scaleImage(): void {
+		if(this.is_qimage_defined(this.image)) {
+			// Scale image to manageable size and store as a scaled_image file.
+			this.scaled_image = this.image.scaled(
+				this.image_label.width(),
+				this.image_label.height(),
+				AspectRatioMode.KeepAspectRatio,
+				TransformationMode.FastTransformation
+			);
+		}
+	}
+
+	load_tileset(image_url: string): void {
+		this.image.load(image_url);
+		this.#scaleImage();
 	}
 }

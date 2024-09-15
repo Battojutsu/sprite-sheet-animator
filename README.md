@@ -6,6 +6,7 @@ This is meant to configure an animation based on a sprite sheet. Then save the i
 - [x] Create basic user interface
 - [x] load and scale image
 - [x] configure tile size and draw grid
+- [] add other configuration options to ui.
 - [] select tiles to put in animation
 - [] rearrange frames
 - [] add time in between frames
