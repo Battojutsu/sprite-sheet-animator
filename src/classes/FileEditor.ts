@@ -55,6 +55,7 @@ export class FileEditor extends Interface {
 		grid_layout.addWidget(height_label, 5, 15, 1, 1);
 		grid_layout.addWidget(width_label, 5, 16, 1, 1);
 
+
 		// Add width height inputs
 		grid_layout.addWidget(this.height_box, 6, 15, 1, 1);
 		grid_layout.addWidget(this.width_box, 6, 16, 1, 1);
