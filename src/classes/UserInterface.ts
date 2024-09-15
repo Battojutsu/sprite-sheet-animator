@@ -34,6 +34,10 @@ export class UserInterface extends FileEditor {
 
 			this.load_tileset(selectedFiles[0]);
 		});
+
+		this.run_grid_button.addEventListener("clicked", () => {
+			this.image_label.update();
+		});
 	}
 
 	#scaleImage(): void {
