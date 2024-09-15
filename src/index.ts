@@ -1,4 +1,5 @@
-import { UserInterface } from "./classes/UserInterface";
-const ui = new UserInterface();
+import { SpriteSheetEditor } from "./classes/SpriteSheetEditor";
 
-ui.show_window();
+const sprite_editor = new SpriteSheetEditor("Sprite Sheet Animator");
+
+sprite_editor.show_window();
