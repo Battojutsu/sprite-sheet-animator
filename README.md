@@ -18,14 +18,14 @@ This is meant to configure an animation based on a sprite sheet. Then save the i
 - [] add layers to animate two frames at the same time (Like a hat)
 
 # Build instructions for non vscode users.
-`npm install`
-`npm run build`
-`./node_modules/.bin/qode ./dist/index.js`
-
+`npm install` \
+`npm run build` \
+`./node_modules/.bin/qode ./dist/index.js` \
+\
 Alternatively you can use the launch.json if using vscode.
 `npm install`
 Then just hit F5
 
 # Credits
-BattoJutsu - Programming Source code under [AGPLV3 License](LICENSE)
+BattoJutsu - Programming Source code under [AGPLV3 License](LICENSE) \
 Joseph Seraph - for Creating the Heros_01 Sprite sheet used in example screenshot - CC-BY 3.0 [License Link](https://github.com/Battojutsu/f_engine/blob/master/src/resources/sprites/Heroes_01/LICENSE)
