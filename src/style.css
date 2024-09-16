@@ -10,6 +10,9 @@ QLineEdit {
 QMainWindow {
 	background-color: cornsilk;
 }
-#image_label, #width_label, #height_label {
+#image_label, #width_label, #height_label, #default_frame_time_label {
 	color:black;
+}
+#labels_ui {
+	background-color: yellow;
 }

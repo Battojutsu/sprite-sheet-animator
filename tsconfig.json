@@ -7,9 +7,10 @@
         "sourceMap": true,
         "outDir": "build",
         "rootDir": "src",
-        "strict": true
+        "strict": true,
+        "baseUrl": "src"
     },
     "include": [
-        "./src/**/*.ts"
+        "src/**/*.ts"
     ]
 }
