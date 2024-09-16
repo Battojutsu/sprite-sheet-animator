@@ -7,6 +7,8 @@ import {
 } from "@nodegui/nodegui";
 
 import { SpriteButton } from "widgets/SpriteButton";
+import { SpriteLineEdit } from "widgets/SpriteLineEdit";
+
 import { SpriteSheetEditor } from "classes/SpriteSheetEditor";
 
 import * as fs from "fs";
@@ -17,9 +19,9 @@ import * as fs from "fs";
 export class SpriteSheetEditorWidgets {
 	loader_button: SpriteButton;
 	run_grid_button: SpriteButton;
-	height_box: QLineEdit;
-	width_box: QLineEdit;
-	default_time_between_frames_box: QLineEdit;
+	height_box: SpriteLineEdit;
+	width_box: SpriteLineEdit;
+	default_time_between_frames_box: SpriteLineEdit;
 	image_label: QLabel;
 	image: QPixmap;
 	scaled_image: QPixmap;
@@ -31,9 +33,9 @@ export class SpriteSheetEditorWidgets {
 		host.window.setStyleSheet(this.style_sheet);
 		this.loader_button = new SpriteButton("Load Tileset", "loader_button",this.#COLUMN_WIDTH);
 		this.run_grid_button = new SpriteButton("Load grid", "run_grid_button", this.#COLUMN_WIDTH);
-		this.height_box = this.#build_QLineEdit();
-		this.width_box = this.#build_QLineEdit();
-		this.default_time_between_frames_box = this.#build_QLineEdit();
+		this.height_box = new SpriteLineEdit(this.#COLUMN_WIDTH);
+		this.width_box = new SpriteLineEdit(this.#COLUMN_WIDTH);
+		this.default_time_between_frames_box = new SpriteLineEdit(this.#COLUMN_WIDTH);
 		[this.image_label, this.image, this.scaled_image] =
 			this.#build_image_label();
 		this.#setup_layout(host);
@@ -51,15 +53,6 @@ export class SpriteSheetEditorWidgets {
 		image_label.setObjectName("image_label");
 
 		return [image_label, image, new QPixmap()];
-	}
-
-	/**
-	 * private abstraction function to build a QPlainTextEdit field.
-	 */
-	#build_QLineEdit(): QLineEdit {
-		const qpte = new QLineEdit();
-		qpte.setFixedWidth(this.#COLUMN_WIDTH);
-		return qpte;
 	}
 
 	/**
