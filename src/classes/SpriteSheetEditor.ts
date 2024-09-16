@@ -8,8 +8,8 @@ import {
 	TransformationMode,
 	QPushButton
 } from "@nodegui/nodegui";
-import { Interface } from "./Interface";
-import { SpriteSheetEditorWidgets } from "./SpriteSheetEditorWidgets";
+import { Interface } from "classes/Interface";
+import { SpriteSheetEditorWidgets } from "classes/SpriteSheetEditorWidgets";
 
 /**
  * A specialized UserInterface for editing a tileset.
@@ -27,7 +27,7 @@ constructor(title: string) {
 		this.widgets = new SpriteSheetEditorWidgets(this);
 
 		// Setup event listeners. Each Function is documented for more detail.
-		this.configure_image_label_draw();
+		this.#configure_image_label_draw();
 		this.load_file_with(this.widgets.loader_button);
 		this.update_grid_with(this.widgets.run_grid_button);
 
@@ -40,7 +40,7 @@ constructor(title: string) {
 	/**
 	 * Configure the image_label to draw the grid, and image.
 	 */
-	configure_image_label_draw(): void {
+	#configure_image_label_draw(): void {
 		this.widgets.image_label.addEventListener(WidgetEventTypes.Paint, () => {
 			// Setup the painter to draw on the image_label then
 			// draw the image in the top left of the image_label.

@@ -16,6 +16,7 @@ export default [
   pluginJs.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
   {
+    files: ["./src/**/*.ts"],
     languageOptions: {
       parserOptions: {
         projectService: true,
