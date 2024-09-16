@@ -6,21 +6,21 @@ import {
 	FileMode,
 	AspectRatioMode,
 	TransformationMode,
-	QPushButton
+	QPushButton,
 } from "@nodegui/nodegui";
-import { Interface } from "classes/Interface";
-import { SpriteSheetEditorWidgets } from "classes/SpriteSheetEditorWidgets";
+import { Interface } from "SpriteInterface/Interface";
+import { SpriteSheetEditorWidgets } from "SpriteInterface/SpriteSheetEditorWidgets";
 
 /**
  * A specialized UserInterface for editing a tileset.
  */
 export class SpriteSheetEditor extends Interface {
 	widgets: SpriteSheetEditorWidgets;
-/**
- * Creates an instance of FileEditor.
- * @param {string} title title of the window
- */
-constructor(title: string) {
+	/**
+	 * Creates an instance of FileEditor.
+	 * @param {string} title title of the window
+	 */
+	constructor(title: string) {
 		super(title);
 
 		// Widgets are moved around and stored in the widgets object.
@@ -45,11 +45,11 @@ constructor(title: string) {
 			// Setup the painter to draw on the image_label then
 			// draw the image in the top left of the image_label.
 			const painter: QPainter = new QPainter(this.widgets.image_label);
-			if(this.is_qimage_defined(this.widgets.scaled_image)) {
+			if (this.is_qimage_defined(this.widgets.scaled_image)) {
 				painter.drawPixmap(0, 0, this.widgets.scaled_image, 0, 0);
 			}
-			if(this.is_qimage_defined(this.widgets.image)) {
-				if(this.widgets.width_box.text().length && this.widgets.height_box.text().length){
+			if (this.is_qimage_defined(this.widgets.image)) {
+				if (this.widgets.width_box.text().length && this.widgets.height_box.text().length) {
 					// Values of the X and Y input in pixels.
 					const size_x = Number(this.widgets.width_box.text());
 					const size_y = Number(this.widgets.height_box.text());
@@ -63,16 +63,16 @@ constructor(title: string) {
 					const slices_height: number = this.widgets.image.height() / size_y;
 
 					// How far will the slices be spread apart.
-					const width_portion: number = this.widgets.image.width() / slices_width * width_scaler;
-					const height_portion: number = this.widgets.image.height() / slices_height * height_scaler;
-					
+					const width_portion: number = (this.widgets.image.width() / slices_width) * width_scaler;
+					const height_portion: number = (this.widgets.image.height() / slices_height) * height_scaler;
+
 					// Draw lines until the right of the image is reached.
-					for(let i = 0; (i * size_x) <= this.widgets.image.width(); i++) {
+					for (let i = 0; i * size_x <= this.widgets.image.width(); i++) {
 						painter.drawLine(i * width_portion, 0, i * width_portion, this.widgets.scaled_image.height());
 					}
 
 					// Draw lines until the bottom of the image is reached.
-					for(let i = 0; (i * size_y) <= this.widgets.image.height(); i++) {
+					for (let i = 0; i * size_y <= this.widgets.image.height(); i++) {
 						painter.drawLine(0, i * height_portion, this.widgets.scaled_image.width(), i * height_portion);
 					}
 				}
@@ -90,7 +90,7 @@ constructor(title: string) {
 
 	/**
 	 * Load a file dialogue with the QPushButton parameter.
-	 * @param loader_button 
+	 * @param loader_button
 	 */
 	load_file_with(loader_button: QPushButton): void {
 		loader_button.addEventListener("clicked", () => {
@@ -106,7 +106,7 @@ constructor(title: string) {
 
 	/**
 	 * Send a update signal that kicks off the paint event listener for the image_label. See: configure_image_label_draw()
-	 * @param run_grid_button 
+	 * @param run_grid_button
 	 */
 	update_grid_with(run_grid_button: QPushButton): void {
 		run_grid_button.addEventListener("clicked", () => {
@@ -115,7 +115,7 @@ constructor(title: string) {
 	}
 
 	#scaleImage(): void {
-		if(this.is_qimage_defined(this.widgets.image)) {
+		if (this.is_qimage_defined(this.widgets.image)) {
 			// Scale image to manageable size and store as a scaled_image file.
 			this.widgets.scaled_image = this.widgets.image.scaled(
 				this.widgets.image_label.width(),

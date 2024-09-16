@@ -1,4 +1,4 @@
-import { SpriteSheetEditor } from "classes/SpriteSheetEditor";
+import { SpriteSheetEditor } from "SpriteInterface/SpriteSheetEditor";
 
 const sprite_editor = new SpriteSheetEditor("Sprite Sheet Animator");
 

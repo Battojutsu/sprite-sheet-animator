@@ -1,9 +1,9 @@
 import { QGridLayout, QWidget, QPixmap, QLabel } from "@nodegui/nodegui";
 
-import { SpriteButton } from "widgets/SpriteButton";
-import { SpriteLineEdit } from "widgets/SpriteLineEdit";
-import { SpriteLabel } from "widgets/SpriteLabel";
-import { SpriteSheetEditor } from "classes/SpriteSheetEditor";
+import { SpriteButton } from "Widgets/SpriteButton";
+import { SpriteLineEdit } from "Widgets/SpriteLineEdit";
+import { SpriteLabel } from "Widgets/SpriteLabel";
+import { SpriteSheetEditor } from "SpriteInterface/SpriteSheetEditor";
 
 import * as fs from "fs";
 
@@ -23,7 +23,7 @@ export class SpriteSheetEditorWidgets {
 	style_sheet: string;
 
 	constructor(host: SpriteSheetEditor) {
-		this.style_sheet = fs.readFileSync(`style.css`).toString();
+		this.style_sheet = fs.readFileSync(`${__dirname}/style.css`).toString();
 		host.window.setStyleSheet(this.style_sheet);
 		this.loader_button = new SpriteButton("Load Tileset", "loader_button", this.#COLUMN_WIDTH);
 		this.run_grid_button = new SpriteButton("Load grid", "run_grid_button", this.#COLUMN_WIDTH);

@@ -1,6 +1,4 @@
-import {
-	QPushButton
-} from "@nodegui/nodegui";
+import { QPushButton } from "@nodegui/nodegui";
 
 /**
  * Extend QButton and modify for use in the Sprite application.
