@@ -1,14 +1,8 @@
-import {
-	QLineEdit,
-	QLabel,
-	QGridLayout,
-	QWidget,
-	QPixmap,
-} from "@nodegui/nodegui";
+import { QGridLayout, QWidget, QPixmap, QLabel } from "@nodegui/nodegui";
 
 import { SpriteButton } from "widgets/SpriteButton";
 import { SpriteLineEdit } from "widgets/SpriteLineEdit";
-
+import { SpriteLabel } from "widgets/SpriteLabel";
 import { SpriteSheetEditor } from "classes/SpriteSheetEditor";
 
 import * as fs from "fs";
@@ -31,13 +25,12 @@ export class SpriteSheetEditorWidgets {
 	constructor(host: SpriteSheetEditor) {
 		this.style_sheet = fs.readFileSync(`style.css`).toString();
 		host.window.setStyleSheet(this.style_sheet);
-		this.loader_button = new SpriteButton("Load Tileset", "loader_button",this.#COLUMN_WIDTH);
+		this.loader_button = new SpriteButton("Load Tileset", "loader_button", this.#COLUMN_WIDTH);
 		this.run_grid_button = new SpriteButton("Load grid", "run_grid_button", this.#COLUMN_WIDTH);
 		this.height_box = new SpriteLineEdit(this.#COLUMN_WIDTH);
 		this.width_box = new SpriteLineEdit(this.#COLUMN_WIDTH);
 		this.default_time_between_frames_box = new SpriteLineEdit(this.#COLUMN_WIDTH);
-		[this.image_label, this.image, this.scaled_image] =
-			this.#build_image_label();
+		[this.image_label, this.image, this.scaled_image] = this.#build_image_label();
 		this.#setup_layout(host);
 	}
 
@@ -56,43 +49,14 @@ export class SpriteSheetEditorWidgets {
 	}
 
 	/**
-	 * Abstraction function to build a plain label as needed for this program.
-	 *
-	 * @param text text inside the button conveyed to the user.
-	 * @param name name of the object for reference in css.
-	 * @param height height in pixels of the label
-	 * @returns {QLabel} a label that is setup like we need for this program.
-	 */
-	#build_plain_label(text: string, name: string, height: number): QLabel {
-		const plain_label = new QLabel();
-		plain_label.setText(text);
-		plain_label.setObjectName(name);
-		plain_label.setFixedHeight(height);
-
-		return plain_label;
-	}
-
-	/**
 	 * Setup the grid layout.
 	 * @param host reference to FileEditor
 	 */
 	#setup_layout(host: SpriteSheetEditor): void {
 		// Configure static items
-		const width_label: QLabel = this.#build_plain_label(
-			"Width in px",
-			"width_label",
-			18
-		);
-		const height_label = this.#build_plain_label(
-			"Height in px",
-			"height_label",
-			18
-		);
-		const default_frame_time_label = this.#build_plain_label(
-			"Default frame time (ms): ",
-			"default_frame_time_label",
-			18
-		);
+		const width_label = new SpriteLabel("Width in px", "width_label", 18);
+		const height_label = new SpriteLabel("Height in px", "height_label", 18);
+		const default_frame_time_label = new SpriteLabel("Default frame time (ms): ", "default_frame_time_label", 18);
 
 		// Begin creation of Layout.
 		const base_widget: QWidget = host.get_new_base_widget();
@@ -103,13 +67,7 @@ export class SpriteSheetEditorWidgets {
 		grid_layout.addWidget(this.image_label, 0, 0, 8, 14);
 
 		grid_layout.addWidget(default_frame_time_label, 4, 15, 1, 1);
-		grid_layout.addWidget(
-			this.default_time_between_frames_box,
-			4,
-			16,
-			1,
-			1
-		);
+		grid_layout.addWidget(this.default_time_between_frames_box, 4, 16, 1, 1);
 
 		grid_layout.addWidget(height_label, 5, 15, 1, 1);
 		grid_layout.addWidget(width_label, 5, 16, 1, 1);
