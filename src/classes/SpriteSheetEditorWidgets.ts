@@ -31,7 +31,6 @@ export class SpriteSheetEditorWidgets {
 		host.window.setStyleSheet(this.style_sheet);
 		this.loader_button = new SpriteButton("Load Tileset", "loader_button",this.#COLUMN_WIDTH);
 		this.run_grid_button = new SpriteButton("Load grid", "run_grid_button", this.#COLUMN_WIDTH);
-		this.run_grid_button = this.#build_run_grid_button();
 		this.height_box = this.#build_QLineEdit();
 		this.width_box = this.#build_QLineEdit();
 		this.default_time_between_frames_box = this.#build_QLineEdit();
