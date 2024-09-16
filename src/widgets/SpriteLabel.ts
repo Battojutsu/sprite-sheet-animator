@@ -1,6 +1,4 @@
-import {
-	QLabel
-} from "@nodegui/nodegui";
+import { QLabel } from "@nodegui/nodegui";
 
 /**
  * Extend QLabel and modify for use in the Sprite application.

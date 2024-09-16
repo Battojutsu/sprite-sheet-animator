@@ -1,6 +1,4 @@
-import {
-	QLineEdit
-} from "@nodegui/nodegui";
+import { QLineEdit } from "@nodegui/nodegui";
 
 /**
  * Extend QLineEdit and modify for use in the Sprite application.
