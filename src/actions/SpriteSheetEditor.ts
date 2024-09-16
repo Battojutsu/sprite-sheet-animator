@@ -8,19 +8,19 @@ import {
 	TransformationMode,
 	QPushButton
 } from "@nodegui/nodegui";
-import { Interface } from "classes/Interface";
-import { SpriteSheetEditorWidgets } from "classes/SpriteSheetEditorWidgets";
+import { Interface } from "actions/Interface";
+import { SpriteSheetEditorWidgets } from "actions/SpriteSheetEditorWidgets";
 
 /**
  * A specialized UserInterface for editing a tileset.
  */
 export class SpriteSheetEditor extends Interface {
 	widgets: SpriteSheetEditorWidgets;
-/**
- * Creates an instance of FileEditor.
- * @param {string} title title of the window
- */
-constructor(title: string) {
+	/**
+	 * Creates an instance of FileEditor.
+	 * @param {string} title title of the window
+	 */
+	constructor(title: string) {
 		super(title);
 
 		// Widgets are moved around and stored in the widgets object.
