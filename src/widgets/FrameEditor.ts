@@ -1,12 +1,9 @@
-import {
-	QLabel,
-	WidgetEventTypes
-} from "@nodegui/nodegui";
+import { QLabel, WidgetEventTypes } from "@nodegui/nodegui";
 
 /**
  * Extend QLabel and set it up to allow you to view frames in an animation and order them around.
  */
-export class FrameEditorWidget extends QLabel{
+export class FrameEditor extends QLabel {
 	labels: QLabel[];
 
 	constructor() {
