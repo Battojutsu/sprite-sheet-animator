@@ -16,6 +16,8 @@ import { SpriteSheetEditorWidgets } from "SpriteInterface/SpriteSheetEditorWidge
  */
 export class SpriteSheetEditor extends Interface {
 	widgets: SpriteSheetEditorWidgets;
+	width_portion: number;
+	height_portion: number;
 	/**
 	 * Creates an instance of FileEditor.
 	 * @param {string} title title of the window
@@ -49,10 +51,13 @@ export class SpriteSheetEditor extends Interface {
 				painter.drawPixmap(0, 0, this.widgets.scaled_image, 0, 0);
 			}
 			if (this.is_qimage_defined(this.widgets.image)) {
-				if (this.widgets.width_box.text().length && this.widgets.height_box.text().length) {
+				const width = this.widgets.getWidthInput();
+				const height = this.widgets.getHeightInput();
+	
+				if (width && height) {
 					// Values of the X and Y input in pixels.
-					const size_x = Number(this.widgets.width_box.text());
-					const size_y = Number(this.widgets.height_box.text());
+					const size_x = width;
+					const size_y = height;
 
 					// How much larger or smaller is the scaled_image over the regular image.
 					const width_scaler: number = this.widgets.scaled_image.width() / this.widgets.image.width();
@@ -63,17 +68,17 @@ export class SpriteSheetEditor extends Interface {
 					const slices_height: number = this.widgets.image.height() / size_y;
 
 					// How far will the slices be spread apart.
-					const width_portion: number = (this.widgets.image.width() / slices_width) * width_scaler;
-					const height_portion: number = (this.widgets.image.height() / slices_height) * height_scaler;
+					this.width_portion = (this.widgets.image.width() / slices_width) * width_scaler;
+					this.height_portion = (this.widgets.image.height() / slices_height) * height_scaler;
 
 					// Draw lines until the right of the image is reached.
 					for (let i = 0; i * size_x <= this.widgets.image.width(); i++) {
-						painter.drawLine(i * width_portion, 0, i * width_portion, this.widgets.scaled_image.height());
+						painter.drawLine(i * this.width_portion, 0, i * this.width_portion, this.widgets.scaled_image.height());
 					}
 
 					// Draw lines until the bottom of the image is reached.
 					for (let i = 0; i * size_y <= this.widgets.image.height(); i++) {
-						painter.drawLine(0, i * height_portion, this.widgets.scaled_image.width(), i * height_portion);
+						painter.drawLine(0, i * this.height_portion, this.widgets.scaled_image.width(), i * this.height_portion);
 					}
 				}
 			}
@@ -111,6 +116,7 @@ export class SpriteSheetEditor extends Interface {
 	update_grid_with(run_grid_button: QPushButton): void {
 		run_grid_button.addEventListener("clicked", () => {
 			this.widgets.image_label.update();
+			this.widgets.frame_editor.update();
 		});
 	}
 

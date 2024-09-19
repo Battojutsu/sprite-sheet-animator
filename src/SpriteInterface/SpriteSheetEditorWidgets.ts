@@ -4,6 +4,7 @@ import { SpriteButton } from "Widgets/SpriteButton";
 import { SpriteLineEdit } from "Widgets/SpriteLineEdit";
 import { SpriteLabel } from "Widgets/SpriteLabel";
 import { SpriteSheetEditor } from "SpriteInterface/SpriteSheetEditor";
+import { FrameEditor } from "Widgets/FrameEditor";
 
 import * as fs from "fs";
 
@@ -21,6 +22,7 @@ export class SpriteSheetEditorWidgets {
 	scaled_image: QPixmap;
 	#COLUMN_WIDTH: number = 100;
 	style_sheet: string;
+	frame_editor: FrameEditor;
 
 	constructor(host: SpriteSheetEditor) {
 		this.style_sheet = fs.readFileSync(`${__dirname}/style.css`).toString();
@@ -31,7 +33,26 @@ export class SpriteSheetEditorWidgets {
 		this.width_box = new SpriteLineEdit(this.#COLUMN_WIDTH);
 		this.default_time_between_frames_box = new SpriteLineEdit(this.#COLUMN_WIDTH);
 		[this.image_label, this.image, this.scaled_image] = this.#build_image_label();
+		this.frame_editor = new FrameEditor(host);
 		this.#setup_layout(host);
+	}
+
+	/**
+	 * Get the width input in pixels;
+	 * @returns the number entered into the width in pixels textinput.
+	 */
+	getWidthInput(): number {
+		if(this.width_box.text().length) return Number(this.width_box.text());
+		else return 0;
+	}
+
+	/**
+	 * Get the height input in pixels;
+	 * @returns the number entered into the height in pixels textinput.
+	 */
+	getHeightInput(): number {
+		if(this.height_box.text().length) return Number(this.height_box.text());
+		else return 0;
 	}
 
 	/**
@@ -79,6 +100,9 @@ export class SpriteSheetEditorWidgets {
 		//Setup toolbar right aligned
 		grid_layout.addWidget(this.run_grid_button, 7, 15, 1, 1);
 		grid_layout.addWidget(this.loader_button, 7, 16, 1, 1);
+
+		//Setup the animation tinkerer.
+		grid_layout.addWidget(this.frame_editor, 8, 0, 1, 17);
 
 		host.window.setCentralWidget(base_widget);
 	}

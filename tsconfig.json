@@ -7,7 +7,7 @@
         "sourceMap": true,
         "outDir": "build",
         "rootDir": "src",
-        "strict": true,
+        "strict": false,
         "baseUrl": "src"
     },
     "include": [
