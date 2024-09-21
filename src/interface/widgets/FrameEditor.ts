@@ -1,5 +1,5 @@
 import { QLabel, QPainter, WidgetEventTypes } from "@nodegui/nodegui";
-import { SpriteSheetEditor } from "SpriteInterface/SpriteSheetEditor";
+import { SpriteSheetEditor } from "interface/SpriteSheetEditor";
 
 /**
  * Extend QLabel and set it up to allow you to view frames in an animation and order them around.

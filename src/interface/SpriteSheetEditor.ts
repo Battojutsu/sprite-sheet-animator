@@ -8,12 +8,12 @@ import {
 	TransformationMode,
 	QPushButton,
 	QColor,
-	QMouseEvent
+	QMouseEvent,
 } from "@nodegui/nodegui";
-import { Interface } from "SpriteInterface/Interface";
-import { SpriteSheetEditorWidgets } from "SpriteInterface/SpriteSheetEditorWidgets";
-import { Coordinate } from "Structure/Proto/Coordinate";
-import { Area } from "Structure/Proto/Area"
+import { Interface } from "interface/Interface";
+import { SpriteSheetEditorWidgets } from "interface/SpriteSheetEditorWidgets";
+import { Coordinate } from "data_structure/proto/Coordinate";
+import { Area } from "data_structure/proto/Area";
 
 /**
  * A specialized UserInterface for editing a tileset.
@@ -59,7 +59,7 @@ export class SpriteSheetEditor extends Interface {
 			if (this.is_qimage_defined(this.widgets.image)) {
 				const width = this.widgets.getWidthInput();
 				const height = this.widgets.getHeightInput();
-	
+
 				if (width && height) {
 					// Values of the X and Y input in pixels.
 					const size_x = width;
@@ -82,19 +82,29 @@ export class SpriteSheetEditor extends Interface {
 
 					// Draw lines until the right of the image is reached.
 					for (let i = 0; i * size_x <= this.widgets.image.width(); i++) {
-						painter.drawLine(i * this.area.width, 0, i * this.area.width, this.widgets.scaled_image.height());
-
+						painter.drawLine(
+							i * this.area.width,
+							0,
+							i * this.area.width,
+							this.widgets.scaled_image.height()
+						);
 					}
 
 					// Draw lines until the bottom of the image is reached.
 					for (let i = 0; i * size_y <= this.widgets.image.height(); i++) {
-						painter.drawLine(0, i * this.area.height, this.widgets.scaled_image.width(), i * this.area.height);
+						painter.drawLine(
+							0,
+							i * this.area.height,
+							this.widgets.scaled_image.width(),
+							i * this.area.height
+						);
 					}
 
 					// Determine if the selected frame is inside the scaled image or it's outside of it inside the image_label.
-					const in_image: boolean = this.selected_frame.x < slices_width && this.selected_frame.y < slices_height;
+					const in_image: boolean =
+						this.selected_frame.x < slices_width && this.selected_frame.y < slices_height;
 
-					if(this.selected_frame && in_image) {
+					if (this.selected_frame && in_image) {
 						painter.setPen(new QColor("green"));
 						painter.drawRect(
 							this.selected_frame.x * this.area.width,
@@ -102,7 +112,6 @@ export class SpriteSheetEditor extends Interface {
 							this.area.width,
 							this.area.height
 						);
-
 					}
 				}
 			}
@@ -121,7 +130,7 @@ export class SpriteSheetEditor extends Interface {
 			const y_frame = Math.floor(ev.y() / this.area.height);
 
 			// Unselect rectangle if you select it again.
-			if(this.selected_frame?.x == x_frame && this.selected_frame?.y == y_frame ) {
+			if (this.selected_frame?.x == x_frame && this.selected_frame?.y == y_frame) {
 				this.selected_frame = undefined;
 			} else {
 				this.selected_frame = new Coordinate(x_frame, y_frame);
