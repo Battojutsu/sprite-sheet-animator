@@ -12,15 +12,15 @@ import {
 } from "@nodegui/nodegui";
 import { Interface } from "SpriteInterface/Interface";
 import { SpriteSheetEditorWidgets } from "SpriteInterface/SpriteSheetEditorWidgets";
-import { Coordinate } from "Structure/Coordinate";
+import { Coordinate } from "Structure/Proto/Coordinate";
+import { Area } from "Structure/Proto/Area"
 
 /**
  * A specialized UserInterface for editing a tileset.
  */
 export class SpriteSheetEditor extends Interface {
 	widgets: SpriteSheetEditorWidgets;
-	width_portion: number;
-	height_portion: number;
+	area: Area;
 	selected_frame: Coordinate;
 
 	/**
@@ -29,6 +29,7 @@ export class SpriteSheetEditor extends Interface {
 	 */
 	constructor(title: string) {
 		super(title);
+		this.area = new Area();
 
 		// Widgets are moved around and stored in the widgets object.
 		this.widgets = new SpriteSheetEditorWidgets(this);
@@ -74,26 +75,32 @@ export class SpriteSheetEditor extends Interface {
 					const slices_height: number = this.widgets.image.height() / size_y;
 
 					// How far will the slices be spread apart.
-					this.width_portion = (this.widgets.image.width() / slices_width) * width_scaler;
-					this.height_portion = (this.widgets.image.height() / slices_height) * height_scaler;
+					this.area = new Area(
+						(this.widgets.image.width() / slices_width) * width_scaler,
+						(this.widgets.image.height() / slices_height) * height_scaler,
+						"pixels"
+					);
 
 					// Draw lines until the right of the image is reached.
 					for (let i = 0; i * size_x <= this.widgets.image.width(); i++) {
-						painter.drawLine(i * this.width_portion, 0, i * this.width_portion, this.widgets.scaled_image.height());
+						painter.drawLine(i * this.area.width, 0, i * this.area.width, this.widgets.scaled_image.height());
 					}
 
 					// Draw lines until the bottom of the image is reached.
 					for (let i = 0; i * size_y <= this.widgets.image.height(); i++) {
-						painter.drawLine(0, i * this.height_portion, this.widgets.scaled_image.width(), i * this.height_portion);
+						painter.drawLine(0, i * this.area.height, this.widgets.scaled_image.width(), i * this.area.height);
 					}
 
-					if(this.selected_frame) {
+					// Determine if the selected frame is inside the scaled image or it's outside of it inside the image_label.
+					const in_image: boolean = this.selected_frame.x < slices_width && this.selected_frame.y < slices_height;
+
+					if(this.selected_frame && in_image) {
 						painter.setPen(new QColor("green"));
 						painter.drawRect(
-							this.selected_frame.x * this.width_portion,
-							this.selected_frame.y * this.height_portion,
-							this.width_portion,
-							this.height_portion
+							this.selected_frame.x * this.area.width,
+							this.selected_frame.y * this.area.height,
+							this.area.width,
+							this.area.height
 						);
 					}
 				}
@@ -109,8 +116,8 @@ export class SpriteSheetEditor extends Interface {
 		this.widgets.image_label.addEventListener(WidgetEventTypes.MouseButtonRelease, (e) => {
 			let ev = new QMouseEvent(e);
 
-			const x_frame = Math.floor(ev.x() / this.width_portion);
-			const y_frame = Math.floor(ev.y() / this.height_portion);
+			const x_frame = Math.floor(ev.x() / this.area.width);
+			const y_frame = Math.floor(ev.y() / this.area.height);
 
 			// Unselect rectangle if you select it again.
 			if(this.selected_frame?.x == x_frame && this.selected_frame?.y == y_frame ) {
