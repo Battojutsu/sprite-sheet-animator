@@ -7,6 +7,7 @@ import { Area } from "Structure/Proto/Area";
 export class Frame {
 	s_coord: Coordinate;
 	area: Area;
+
 	duration: number;
 	metadata: Map<string, string>;
 

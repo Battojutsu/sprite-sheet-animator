@@ -22,7 +22,6 @@ export class SpriteSheetEditor extends Interface {
 	widgets: SpriteSheetEditorWidgets;
 	area: Area;
 	selected_frame: Coordinate;
-
 	/**
 	 * Creates an instance of FileEditor.
 	 * @param {string} title title of the window
@@ -84,6 +83,7 @@ export class SpriteSheetEditor extends Interface {
 					// Draw lines until the right of the image is reached.
 					for (let i = 0; i * size_x <= this.widgets.image.width(); i++) {
 						painter.drawLine(i * this.area.width, 0, i * this.area.width, this.widgets.scaled_image.height());
+
 					}
 
 					// Draw lines until the bottom of the image is reached.
@@ -102,6 +102,7 @@ export class SpriteSheetEditor extends Interface {
 							this.area.width,
 							this.area.height
 						);
+
 					}
 				}
 			}
