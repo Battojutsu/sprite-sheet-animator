@@ -1,17 +1,14 @@
 import {
 	QPixmap,
-	QPainter,
 	WidgetEventTypes,
-	QFileDialog,
-	FileMode,
 	AspectRatioMode,
 	TransformationMode,
 	QPushButton,
-	QColor,
-	QMouseEvent,
+	QMouseEvent
 } from "@nodegui/nodegui";
 import { BaseInterface, SpriteSheetEditorWidgets } from "interface/interface";
-import { Coordinate, Area } from "data_structures/data_structures"
+import { Coordinate, Area } from "data_structures/data_structures";
+import { draw_grid, load_file_with } from "sprite_events/sprite_events";
 
 /**
  * A specialized UserInterface for editing a tileset.
@@ -48,7 +45,7 @@ export class SpriteSheetEditor extends BaseInterface {
 	 */
 	#configure_image_label_draw(): void {
 		this.widgets.image_label.addEventListener(WidgetEventTypes.Paint, () => {
-
+			draw_grid(this);
 		});
 	}
 
@@ -85,13 +82,7 @@ export class SpriteSheetEditor extends BaseInterface {
 	 */
 	load_file_with(loader_button: QPushButton): void {
 		loader_button.addEventListener("clicked", () => {
-			const fileDialog = new QFileDialog();
-			fileDialog.setFileMode(FileMode.AnyFile);
-			fileDialog.setNameFilter("Images (*.png *.bmp *.jpg)");
-			fileDialog.exec();
-			const selectedFiles = fileDialog.selectedFiles();
-
-			this.load_tileset(selectedFiles[0]);
+			load_file_with(this);
 		});
 	}
 
