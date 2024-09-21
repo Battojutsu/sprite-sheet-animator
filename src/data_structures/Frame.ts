@@ -2,8 +2,8 @@
  * A single frame structure that will be exported when animation is complete.
  */
 
-import { Coordinate } from "data_structure/proto/Coordinate";
-import { Area } from "data_structure/proto/Area";
+import { Coordinate, Area } from "./data_structures";
+
 export class Frame {
 	s_coord: Coordinate;
 	area: Area;

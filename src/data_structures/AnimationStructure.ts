@@ -1,4 +1,4 @@
-import { Animation } from "./Animation";
+import { Animation } from "./data_structures";
 
 /**
  * A collection of animation structures that will be exported when animation is complete.

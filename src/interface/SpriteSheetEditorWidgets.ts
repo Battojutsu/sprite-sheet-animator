@@ -1,11 +1,5 @@
 import { QGridLayout, QWidget, QPixmap, QLabel } from "@nodegui/nodegui";
-
-import { SpriteButton } from "interface/widgets/SpriteButton";
-import { SpriteLineEdit } from "interface/widgets/SpriteLineEdit";
-import { SpriteLabel } from "interface/widgets/SpriteLabel";
-import { SpriteSheetEditor } from "interface/SpriteSheetEditor";
-import { FrameEditor } from "interface/widgets/FrameEditor";
-
+import { SpriteButton, SpriteLineEdit, SpriteLabel, SpriteSheetEditor, FrameEditor } from "interface/interface";
 import * as fs from "fs";
 
 /**
