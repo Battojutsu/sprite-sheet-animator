@@ -7,9 +7,12 @@ import {
 	AspectRatioMode,
 	TransformationMode,
 	QPushButton,
+	QColor,
+	QMouseEvent
 } from "@nodegui/nodegui";
 import { Interface } from "SpriteInterface/Interface";
 import { SpriteSheetEditorWidgets } from "SpriteInterface/SpriteSheetEditorWidgets";
+import { Coordinate } from "Structure/Coordinate";
 
 /**
  * A specialized UserInterface for editing a tileset.
@@ -18,6 +21,8 @@ export class SpriteSheetEditor extends Interface {
 	widgets: SpriteSheetEditorWidgets;
 	width_portion: number;
 	height_portion: number;
+	selected_frame: Coordinate;
+
 	/**
 	 * Creates an instance of FileEditor.
 	 * @param {string} title title of the window
@@ -30,6 +35,7 @@ export class SpriteSheetEditor extends Interface {
 
 		// Setup event listeners. Each Function is documented for more detail.
 		this.#configure_image_label_draw();
+		this.#configure_image_label_click();
 		this.load_file_with(this.widgets.loader_button);
 		this.update_grid_with(this.widgets.run_grid_button);
 
@@ -80,9 +86,39 @@ export class SpriteSheetEditor extends Interface {
 					for (let i = 0; i * size_y <= this.widgets.image.height(); i++) {
 						painter.drawLine(0, i * this.height_portion, this.widgets.scaled_image.width(), i * this.height_portion);
 					}
+
+					if(this.selected_frame) {
+						painter.setPen(new QColor("green"));
+						painter.drawRect(
+							this.selected_frame.x * this.width_portion,
+							this.selected_frame.y * this.height_portion,
+							this.width_portion,
+							this.height_portion
+						);
+					}
 				}
 			}
 			painter.end();
+		});
+	}
+
+	/**
+	 * This sets up the event listener for the image click function.
+	 */
+	#configure_image_label_click(): void {
+		this.widgets.image_label.addEventListener(WidgetEventTypes.MouseButtonRelease, (e) => {
+			let ev = new QMouseEvent(e);
+
+			const x_frame = Math.floor(ev.x() / this.width_portion);
+			const y_frame = Math.floor(ev.y() / this.height_portion);
+
+			// Unselect rectangle if you select it again.
+			if(this.selected_frame?.x == x_frame && this.selected_frame?.y == y_frame ) {
+				this.selected_frame = undefined;
+			} else {
+				this.selected_frame = new Coordinate(x_frame, y_frame);
+			}
+			this.widgets.image_label.update();
 		});
 	}
 

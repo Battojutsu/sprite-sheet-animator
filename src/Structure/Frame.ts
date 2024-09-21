@@ -27,6 +27,4 @@ export class Frame {
 		this.duration = duration;
 		this.metadata = metadata;
 	}
-
-	
 }
