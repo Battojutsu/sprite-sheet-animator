@@ -12,8 +12,8 @@ export class FrameEditor extends QLabel {
 		this.setObjectName("labels_ui");
 		// Ran when widget comes into view, and when labels_ui.update() (QLabel function) is called.
 		this.addEventListener(WidgetEventTypes.Paint, () => {
-			let width = host.width_portion;
-			let height = host.height_portion;
+			let width = host.area.width;
+			let height = host.area.height;
 
 			if(!width) width = 100;
 			if(!height) height = 100;

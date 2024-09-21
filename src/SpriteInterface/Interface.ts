@@ -16,6 +16,7 @@ export class Interface {
 	 */
 	show_window(): void {
 		this.window.show();
+		global.win = this.window;
 	}
 
 	/**
