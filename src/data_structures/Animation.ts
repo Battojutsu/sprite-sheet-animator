@@ -1,4 +1,4 @@
-import { Frame } from "./Frame";
+import { Frame } from "./data_structures";
 
 /**
  * A single animation structure that will be exported when animation is complete.
