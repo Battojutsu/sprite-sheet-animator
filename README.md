@@ -17,7 +17,7 @@ This is meant to configure an animation based on a sprite sheet. Then save the i
 -   [] export animation information to a json data structure
 -   [] preview animation in tool
 
-# Not needed for my project. But if interest is high I might be done in the future.
+# Not needed for my project. But may be added if interest is high.
 
 -   [] allow translation animations.
 -   [] add layers to animate two frames at the same time (Like a hat)
