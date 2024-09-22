@@ -1,8 +1,4 @@
-import {
-	QPixmap,
-	WidgetEventTypes,
-	QPushButton
-} from "@nodegui/nodegui";
+import { QPixmap, WidgetEventTypes, QPushButton } from "@nodegui/nodegui";
 import { BaseInterface, SpriteSheetEditorWidgets } from "interface/interface";
 import { Coordinate, Area } from "data_structures/data_structures";
 import events from "sprite_events/sprite_events";
@@ -21,10 +17,13 @@ export class SpriteSheetEditor extends BaseInterface {
 	 */
 	constructor(title: string) {
 		super(title);
+		// I made a design decison made to use a global here. In interest of reducing cognitive overhead.
+		// I don't see it as a problem since there will only be one per application.
+		global.editor = this;
 		this.area = new Area();
 
 		// Widgets are moved around and stored in the widgets object.
-		this.widgets = new SpriteSheetEditorWidgets(this);
+		this.widgets = new SpriteSheetEditorWidgets();
 
 		// Setup event listeners. Each Function is documented for more detail.
 		this.#configure_image_label_draw();
@@ -35,7 +34,7 @@ export class SpriteSheetEditor extends BaseInterface {
 
 		// Configure scaling event listener.
 		this.window.addEventListener(WidgetEventTypes.Resize, () => {
-			events.scale_image(this);
+			events.scale_image();
 		});
 	}
 
@@ -44,7 +43,7 @@ export class SpriteSheetEditor extends BaseInterface {
 	 */
 	#configure_image_label_draw(): void {
 		this.widgets.image_label.addEventListener(WidgetEventTypes.Paint, () => {
-			events.draw_grid(this);
+			events.draw_grid();
 		});
 	}
 
@@ -52,9 +51,12 @@ export class SpriteSheetEditor extends BaseInterface {
 	 * This sets up the event listener for the image click function.
 	 */
 	#configure_image_label_click(): void {
-		this.widgets.image_label.addEventListener(WidgetEventTypes.MouseButtonRelease, (e:NativeRawPointer<"QEvent">) => {
-			events.image_click(this, e);
-		});
+		this.widgets.image_label.addEventListener(
+			WidgetEventTypes.MouseButtonRelease,
+			(e: NativeRawPointer<"QEvent">) => {
+				events.image_click(e);
+			}
+		);
 	}
 
 	/**
@@ -70,7 +72,7 @@ export class SpriteSheetEditor extends BaseInterface {
 	 */
 	load_file_with(loader_button: QPushButton): void {
 		loader_button.addEventListener("clicked", () => {
-			events.load_file_with(this);
+			events.load_file_with();
 		});
 	}
 
@@ -79,7 +81,7 @@ export class SpriteSheetEditor extends BaseInterface {
 	 */
 	add_frame_with(add_frame_button: QPushButton): void {
 		add_frame_button.addEventListener("clicked", () => {
-			events.add_frame(this);
+			events.add_frame();
 		});
 	}
 
@@ -96,7 +98,7 @@ export class SpriteSheetEditor extends BaseInterface {
 
 	load_tileset(image_url: string): void {
 		this.widgets.image.load(image_url);
-		events.scale_image(this);
+		events.scale_image();
 		this.widgets.image_label.update();
 	}
 }

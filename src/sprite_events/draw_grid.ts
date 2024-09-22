@@ -6,11 +6,13 @@ import { SpriteSheetEditor } from "interface/interface";
  * Handles the drawing of the image grid. And the spritesheet.
  * @param editor 
  */
-export function draw_grid(editor: SpriteSheetEditor) {
+export function draw_grid() {
+	const editor: SpriteSheetEditor = global.editor;
+	
 	// Setup the painter to draw on the image_label then
 	// draw the image in the top left of the image_label.
 	const painter: QPainter = new QPainter(editor.widgets.image_label);
-
+	
 	if (editor.is_qimage_defined(editor.widgets.scaled_image)) {
 		painter.drawPixmap(0, 0, editor.widgets.scaled_image, 0, 0);
 	}

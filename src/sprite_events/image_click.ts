@@ -8,8 +8,9 @@ import { SpriteSheetEditor } from "interface/interface";
  * @param editor the editor calling this event.
  * @param e The event object.
  */
-export function image_click(editor: SpriteSheetEditor, e:NativeRawPointer<"QEvent">, ) {
-	let ev = new QMouseEvent(e);
+export function image_click(e:NativeRawPointer<"QEvent">, ) {
+	const editor: SpriteSheetEditor = global.editor;
+	const ev = new QMouseEvent(e);
 
 	// Calculate the coordinates.
 	const frame = new Coordinate(

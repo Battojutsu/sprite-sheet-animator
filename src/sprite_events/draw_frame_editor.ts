@@ -1,14 +1,13 @@
 import { QPainter } from "@nodegui/nodegui";
-import { SpriteSheetEditor } from "interface/interface";
 import { FrameEditor } from "interface/interface";
 
 /**
  * Handles the drawing of the frame editor.
  * @param editor 
  */
-export function draw_frame_editor(editor: SpriteSheetEditor, frame_editor: FrameEditor) {
-	let width = editor.area.width;
-	let height = editor.area.height;
+export function draw_frame_editor(frame_editor: FrameEditor) {
+	let width = global.editor.area.width;
+	let height = global.editor.area.height;
 
 	if(!width) width = 100;
 	if(!height) height = 100;

@@ -1,5 +1,6 @@
 import { SpriteSheetEditor } from "interface/SpriteSheetEditor";
+import { AnimationStructure } from "data_structures/AnimationStructure";
 
-const sprite_editor = new SpriteSheetEditor("Sprite Sheet Animator");
-
-sprite_editor.show_window();
+new AnimationStructure("default", "");
+new SpriteSheetEditor("Sprite Sheet Animator");
+global.editor.show_window();

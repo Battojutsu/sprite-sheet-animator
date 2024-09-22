@@ -1,11 +1,8 @@
-import { SpriteSheetEditor } from "interface/interface";
-
 /**
  * 
  * @param editor the editor calling this event.
  */
-export function add_frame(editor: SpriteSheetEditor) {
+export function add_frame() {
 
-
-	console.log(editor);
+	console.log("todo");
 }
