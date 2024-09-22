@@ -9,6 +9,9 @@ export class AnimationStructure {
 	animations: Animation[];
 	metadata: Map<string, string>;
 	constructor(id: string, path_to_sprite: string, metadata: Map<string, string> = new Map()) {
+		// I made a design decison made to use a global here. In interest of reducing cognitive overhead.
+		// I don't see it as a problem since there will only be one per application.
+		global.anime = this;
 		this.id = id;
 		this.path_to_sprite = this.path_to_sprite = path_to_sprite;
 		this.animations = [];

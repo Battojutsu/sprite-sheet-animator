@@ -1,5 +1,5 @@
 import { QGridLayout, QWidget, QPixmap, QLabel } from "@nodegui/nodegui";
-import { SpriteButton, SpriteLineEdit, SpriteLabel, SpriteSheetEditor, FrameEditor } from "interface/interface";
+import { SpriteButton, SpriteLineEdit, SpriteLabel, FrameEditor, SpriteSheetEditor } from "interface/interface";
 import * as fs from "fs";
 
 /**
@@ -19,9 +19,10 @@ export class SpriteSheetEditorWidgets {
 	style_sheet: string;
 	frame_editor: FrameEditor;
 
-	constructor(host: SpriteSheetEditor) {
+	constructor() {
+		const editor: SpriteSheetEditor = global.editor;
 		this.style_sheet = fs.readFileSync(`${__dirname}/style.css`).toString();
-		host.window.setStyleSheet(this.style_sheet);
+		editor.window.setStyleSheet(this.style_sheet);
 		this.loader_button = new SpriteButton("Load Tileset", "loader_button", this.#COLUMN_WIDTH);
 		this.run_grid_button = new SpriteButton("Load grid", "run_grid_button", this.#COLUMN_WIDTH);
 		this.add_frame_button = new SpriteButton("Add frame", "add_frame_button", this.#COLUMN_WIDTH);
@@ -29,8 +30,8 @@ export class SpriteSheetEditorWidgets {
 		this.width_box = new SpriteLineEdit(this.#COLUMN_WIDTH);
 		this.default_time_between_frames_box = new SpriteLineEdit(this.#COLUMN_WIDTH);
 		[this.image_label, this.image, this.scaled_image] = this.#build_image_label();
-		this.frame_editor = new FrameEditor(host);
-		this.#setup_layout(host);
+		this.frame_editor = new FrameEditor();
+		this.#setup_layout();
 	}
 
 	/**
@@ -69,14 +70,16 @@ export class SpriteSheetEditorWidgets {
 	 * Setup the grid layout.
 	 * @param host reference to FileEditor
 	 */
-	#setup_layout(host: SpriteSheetEditor): void {
+	#setup_layout(): void {
+		const editor: SpriteSheetEditor = global.editor;
+
 		// Configure static items
 		const width_label = new SpriteLabel("Width in px", "width_label", 18);
 		const height_label = new SpriteLabel("Height in px", "height_label", 18);
 		const default_frame_time_label = new SpriteLabel("Default frame time (ms): ", "default_frame_time_label", 18);
 
 		// Begin creation of Layout.
-		const base_widget: QWidget = host.get_new_base_widget();
+		const base_widget: QWidget = editor.get_new_base_widget();
 		const grid_layout: QGridLayout = new QGridLayout();
 
 		// Begin alignment of widgets
@@ -103,6 +106,6 @@ export class SpriteSheetEditorWidgets {
 		//Setup the animation tinkerer.
 		grid_layout.addWidget(this.frame_editor, 8, 0, 1, 17);
 
-		host.window.setCentralWidget(base_widget);
+		editor.window.setCentralWidget(base_widget);
 	}
 }

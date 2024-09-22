@@ -4,7 +4,8 @@ import {
 } from "@nodegui/nodegui";
 import { SpriteSheetEditor } from "interface/interface";
 
-export function scale_image(editor: SpriteSheetEditor): void {
+export function scale_image(): void {
+	const editor: SpriteSheetEditor = global.editor;
 	if (editor.is_qimage_defined(editor.widgets.image)) {
 		// Scale image to manageable size and store as a scaled_image file.
 		editor.widgets.scaled_image = editor.widgets.image.scaled(
