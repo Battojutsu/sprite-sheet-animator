@@ -1,14 +1,12 @@
 import {
 	QPixmap,
 	WidgetEventTypes,
-	AspectRatioMode,
-	TransformationMode,
-	QPushButton,
-	QMouseEvent
+	QPushButton
 } from "@nodegui/nodegui";
 import { BaseInterface, SpriteSheetEditorWidgets } from "interface/interface";
 import { Coordinate, Area } from "data_structures/data_structures";
-import { draw_grid, load_file_with } from "sprite_events/sprite_events";
+import events from "sprite_events/sprite_events";
+import { NativeRawPointer } from "@nodegui/nodegui/dist/lib/core/Component";
 
 /**
  * A specialized UserInterface for editing a tileset.
@@ -33,10 +31,11 @@ export class SpriteSheetEditor extends BaseInterface {
 		this.#configure_image_label_click();
 		this.load_file_with(this.widgets.loader_button);
 		this.update_grid_with(this.widgets.run_grid_button);
+		this.add_frame_with(this.widgets.add_frame_button);
 
 		// Configure scaling event listener.
 		this.window.addEventListener(WidgetEventTypes.Resize, () => {
-			this.#scaleImage();
+			events.scale_image(this);
 		});
 	}
 
@@ -45,7 +44,7 @@ export class SpriteSheetEditor extends BaseInterface {
 	 */
 	#configure_image_label_draw(): void {
 		this.widgets.image_label.addEventListener(WidgetEventTypes.Paint, () => {
-			draw_grid(this);
+			events.draw_grid(this);
 		});
 	}
 
@@ -53,19 +52,8 @@ export class SpriteSheetEditor extends BaseInterface {
 	 * This sets up the event listener for the image click function.
 	 */
 	#configure_image_label_click(): void {
-		this.widgets.image_label.addEventListener(WidgetEventTypes.MouseButtonRelease, (e) => {
-			let ev = new QMouseEvent(e);
-
-			const x_frame = Math.floor(ev.x() / this.area.width);
-			const y_frame = Math.floor(ev.y() / this.area.height);
-
-			// Unselect rectangle if you select it again.
-			if (this.selected_frame?.x == x_frame && this.selected_frame?.y == y_frame) {
-				this.selected_frame = undefined;
-			} else {
-				this.selected_frame = new Coordinate(x_frame, y_frame);
-			}
-			this.widgets.image_label.update();
+		this.widgets.image_label.addEventListener(WidgetEventTypes.MouseButtonRelease, (e:NativeRawPointer<"QEvent">) => {
+			events.image_click(this, e);
 		});
 	}
 
@@ -82,7 +70,16 @@ export class SpriteSheetEditor extends BaseInterface {
 	 */
 	load_file_with(loader_button: QPushButton): void {
 		loader_button.addEventListener("clicked", () => {
-			load_file_with(this);
+			events.load_file_with(this);
+		});
+	}
+
+	/**
+	 * Add a new Frame to the animation editor.
+	 */
+	add_frame_with(add_frame_button: QPushButton): void {
+		add_frame_button.addEventListener("clicked", () => {
+			events.add_frame(this);
 		});
 	}
 
@@ -97,20 +94,9 @@ export class SpriteSheetEditor extends BaseInterface {
 		});
 	}
 
-	#scaleImage(): void {
-		if (this.is_qimage_defined(this.widgets.image)) {
-			// Scale image to manageable size and store as a scaled_image file.
-			this.widgets.scaled_image = this.widgets.image.scaled(
-				this.widgets.image_label.width(),
-				this.widgets.image_label.height(),
-				AspectRatioMode.KeepAspectRatio,
-				TransformationMode.FastTransformation
-			);
-		}
-	}
-
 	load_tileset(image_url: string): void {
 		this.widgets.image.load(image_url);
-		this.#scaleImage();
+		events.scale_image(this);
+		this.widgets.image_label.update();
 	}
 }

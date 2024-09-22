@@ -2,6 +2,10 @@ import { QPainter, QColor } from "@nodegui/nodegui";
 import { Area } from "data_structures/data_structures";
 import { SpriteSheetEditor } from "interface/interface";
 
+/**
+ * Handles the drawing of the image grid. And the spritesheet.
+ * @param editor 
+ */
 export function draw_grid(editor: SpriteSheetEditor) {
 	// Setup the painter to draw on the image_label then
 	// draw the image in the top left of the image_label.
