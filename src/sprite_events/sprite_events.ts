@@ -1,5 +1,5 @@
 import { add_frame } from "./add_frame";
-import { draw_frame_editor } from "./draw_editor";
+import { draw_frame_editor } from "./draw_frame_editor";
 import { draw_grid } from "./draw_grid";
 import { image_click } from "./image_click";
 import { load_file_with } from "./load_file_with";
