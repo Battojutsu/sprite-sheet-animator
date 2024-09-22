@@ -8,6 +8,7 @@ import * as fs from "fs";
 export class SpriteSheetEditorWidgets {
 	loader_button: SpriteButton;
 	run_grid_button: SpriteButton;
+	add_frame_button: SpriteButton;
 	height_box: SpriteLineEdit;
 	width_box: SpriteLineEdit;
 	default_time_between_frames_box: SpriteLineEdit;
@@ -23,6 +24,7 @@ export class SpriteSheetEditorWidgets {
 		host.window.setStyleSheet(this.style_sheet);
 		this.loader_button = new SpriteButton("Load Tileset", "loader_button", this.#COLUMN_WIDTH);
 		this.run_grid_button = new SpriteButton("Load grid", "run_grid_button", this.#COLUMN_WIDTH);
+		this.add_frame_button = new SpriteButton("Add frame", "add_frame_button", this.#COLUMN_WIDTH);
 		this.height_box = new SpriteLineEdit(this.#COLUMN_WIDTH);
 		this.width_box = new SpriteLineEdit(this.#COLUMN_WIDTH);
 		this.default_time_between_frames_box = new SpriteLineEdit(this.#COLUMN_WIDTH);
@@ -81,13 +83,16 @@ export class SpriteSheetEditorWidgets {
 		base_widget.setLayout(grid_layout);
 		grid_layout.addWidget(this.image_label, 0, 0, 8, 14);
 
+		// Add the 'Add Frame Button'
+		grid_layout.addWidget(this.add_frame_button, 3, 15, 1, 1);
+
+		// Add default time between frame inputs
 		grid_layout.addWidget(default_frame_time_label, 4, 15, 1, 1);
 		grid_layout.addWidget(this.default_time_between_frames_box, 4, 16, 1, 1);
 
+		// Add width height labels and inputs
 		grid_layout.addWidget(height_label, 5, 15, 1, 1);
 		grid_layout.addWidget(width_label, 5, 16, 1, 1);
-
-		// Add width height inputs
 		grid_layout.addWidget(this.height_box, 6, 15, 1, 1);
 		grid_layout.addWidget(this.width_box, 6, 16, 1, 1);
 

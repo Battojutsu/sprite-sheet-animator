@@ -31,6 +31,7 @@ export class SpriteSheetEditor extends BaseInterface {
 		this.#configure_image_label_click();
 		this.load_file_with(this.widgets.loader_button);
 		this.update_grid_with(this.widgets.run_grid_button);
+		this.add_frame_with(this.widgets.add_frame_button);
 
 		// Configure scaling event listener.
 		this.window.addEventListener(WidgetEventTypes.Resize, () => {
@@ -70,6 +71,15 @@ export class SpriteSheetEditor extends BaseInterface {
 	load_file_with(loader_button: QPushButton): void {
 		loader_button.addEventListener("clicked", () => {
 			events.load_file_with(this);
+		});
+	}
+
+	/**
+	 * Add a new Frame to the animation editor.
+	 */
+	add_frame_with(add_frame_button: QPushButton): void {
+		add_frame_button.addEventListener("clicked", () => {
+			events.add_frame(this);
 		});
 	}
 
