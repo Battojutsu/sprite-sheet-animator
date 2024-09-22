@@ -13,7 +13,7 @@ export class FrameEditor extends QLabel {
 		this.setObjectName("labels_ui");
 		// Ran when widget comes into view, and when labels_ui.update() (QLabel function) is called.
 		this.addEventListener(WidgetEventTypes.Paint, () => {
-			events.draw_frame_editor(editor);
+			events.draw_frame_editor(editor, this);
 		});
 	}
 }
