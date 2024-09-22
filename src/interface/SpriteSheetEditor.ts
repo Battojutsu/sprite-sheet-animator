@@ -5,7 +5,7 @@ import {
 } from "@nodegui/nodegui";
 import { BaseInterface, SpriteSheetEditorWidgets } from "interface/interface";
 import { Coordinate, Area } from "data_structures/data_structures";
-import { draw_grid, load_file_with, image_click, scale_image } from "sprite_events/sprite_events";
+import events from "sprite_events/sprite_events";
 import { NativeRawPointer } from "@nodegui/nodegui/dist/lib/core/Component";
 
 /**
@@ -34,7 +34,7 @@ export class SpriteSheetEditor extends BaseInterface {
 
 		// Configure scaling event listener.
 		this.window.addEventListener(WidgetEventTypes.Resize, () => {
-			scale_image(this);
+			events.scale_image(this);
 		});
 	}
 
@@ -43,7 +43,7 @@ export class SpriteSheetEditor extends BaseInterface {
 	 */
 	#configure_image_label_draw(): void {
 		this.widgets.image_label.addEventListener(WidgetEventTypes.Paint, () => {
-			draw_grid(this);
+			events.draw_grid(this);
 		});
 	}
 
@@ -52,7 +52,7 @@ export class SpriteSheetEditor extends BaseInterface {
 	 */
 	#configure_image_label_click(): void {
 		this.widgets.image_label.addEventListener(WidgetEventTypes.MouseButtonRelease, (e:NativeRawPointer<"QEvent">) => {
-			image_click(this, e);
+			events.image_click(this, e);
 		});
 	}
 
@@ -69,7 +69,7 @@ export class SpriteSheetEditor extends BaseInterface {
 	 */
 	load_file_with(loader_button: QPushButton): void {
 		loader_button.addEventListener("clicked", () => {
-			load_file_with(this);
+			events.load_file_with(this);
 		});
 	}
 
@@ -86,7 +86,7 @@ export class SpriteSheetEditor extends BaseInterface {
 
 	load_tileset(image_url: string): void {
 		this.widgets.image.load(image_url);
-		scale_image(this);
+		events.scale_image(this);
 		this.widgets.image_label.update();
 	}
 }
