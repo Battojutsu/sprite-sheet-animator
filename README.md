@@ -1,24 +1,25 @@
 # sprite-sheet-animator
 
 ![screenshot of sprite sheet animator](screen.png)
-Currently in active development. Not accepting pull requests until first release is complete.\n
-Animate sprites and save to json. \n
+Currently in active development. \
+Animate sprites and save to json. \
+Create animations from spritesheets. \
 This is meant to configure an animation based on a sprite sheet. Then save the information; like time between frames and which frames to display into a JSON data structure so that you can allow someone to help you animate characters. Or allow people to add in custom animations into your games without altering the source code (Mods perhaps).
 
 -   [x] Create basic user interface
 -   [x] load and scale image
 -   [x] configure tile size and draw grid
 -   [x] add other configuration options to ui.
--   [] select tiles to put in animation
+-   [x] select tiles to put in animation
+-   [x] add time in between frames
+-   [x] allow frames to be tagged
 -   [] rearrange frames
--   [] add time in between frames
--   [] allow frames to be tagged
 -   [] export animation information to a json data structure
 -   [] preview animation in tool
 
-# Beyond scope for now but might be done in the future.
+# Not needed for my project. But if interest is high I might be done in the future.
 
--   [] allow scaling animations
+-   [] allow translation animations.
 -   [] add layers to animate two frames at the same time (Like a hat)
 
 # Build instructions for non vscode users.

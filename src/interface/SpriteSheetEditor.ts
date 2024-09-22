@@ -9,7 +9,7 @@ import { NativeRawPointer } from "@nodegui/nodegui/dist/lib/core/Component";
  */
 export class SpriteSheetEditor extends BaseInterface {
 	widgets: SpriteSheetEditorWidgets;
-	area: Area;
+	area: Area; // Area of individual grids. TODO: Better label this.
 	selected_frame: Coordinate;
 	/**
 	 * Creates an instance of FileEditor.

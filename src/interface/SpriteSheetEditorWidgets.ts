@@ -29,6 +29,7 @@ export class SpriteSheetEditorWidgets {
 		this.height_box = new SpriteLineEdit(this.#COLUMN_WIDTH);
 		this.width_box = new SpriteLineEdit(this.#COLUMN_WIDTH);
 		this.default_time_between_frames_box = new SpriteLineEdit(this.#COLUMN_WIDTH);
+		this.default_time_between_frames_box.setText("5");
 		[this.image_label, this.image, this.scaled_image] = this.#build_image_label();
 		this.frame_editor = new FrameEditor();
 		this.#setup_layout();
@@ -49,6 +50,15 @@ export class SpriteSheetEditorWidgets {
 	 */
 	getHeightInput(): number {
 		if(this.height_box.text().length) return Number(this.height_box.text());
+		else return 0;
+	}
+
+	/**
+	 * Get the height input in pixels;
+	 * @returns the number entered into the height in pixels textinput.
+	 */
+	getDefaultTimeInput(): number {
+		if(this.default_time_between_frames_box.text().length) return Number(this.default_time_between_frames_box.text());
 		else return 0;
 	}
 
