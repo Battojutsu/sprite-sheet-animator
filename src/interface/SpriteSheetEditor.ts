@@ -3,12 +3,12 @@ import {
 	WidgetEventTypes,
 	AspectRatioMode,
 	TransformationMode,
-	QPushButton,
-	QMouseEvent
+	QPushButton
 } from "@nodegui/nodegui";
 import { BaseInterface, SpriteSheetEditorWidgets } from "interface/interface";
 import { Coordinate, Area } from "data_structures/data_structures";
-import { draw_grid, load_file_with } from "sprite_events/sprite_events";
+import { draw_grid, load_file_with, image_click } from "sprite_events/sprite_events";
+import { NativeRawPointer } from "@nodegui/nodegui/dist/lib/core/Component";
 
 /**
  * A specialized UserInterface for editing a tileset.
@@ -53,19 +53,8 @@ export class SpriteSheetEditor extends BaseInterface {
 	 * This sets up the event listener for the image click function.
 	 */
 	#configure_image_label_click(): void {
-		this.widgets.image_label.addEventListener(WidgetEventTypes.MouseButtonRelease, (e) => {
-			let ev = new QMouseEvent(e);
-
-			const x_frame = Math.floor(ev.x() / this.area.width);
-			const y_frame = Math.floor(ev.y() / this.area.height);
-
-			// Unselect rectangle if you select it again.
-			if (this.selected_frame?.x == x_frame && this.selected_frame?.y == y_frame) {
-				this.selected_frame = undefined;
-			} else {
-				this.selected_frame = new Coordinate(x_frame, y_frame);
-			}
-			this.widgets.image_label.update();
+		this.widgets.image_label.addEventListener(WidgetEventTypes.MouseButtonRelease, (e:NativeRawPointer<"QEvent">) => {
+			image_click(this, e);
 		});
 	}
 
