@@ -1,13 +1,11 @@
 import {
 	QPixmap,
 	WidgetEventTypes,
-	AspectRatioMode,
-	TransformationMode,
 	QPushButton
 } from "@nodegui/nodegui";
 import { BaseInterface, SpriteSheetEditorWidgets } from "interface/interface";
 import { Coordinate, Area } from "data_structures/data_structures";
-import { draw_grid, load_file_with, image_click } from "sprite_events/sprite_events";
+import { draw_grid, load_file_with, image_click, scale_image } from "sprite_events/sprite_events";
 import { NativeRawPointer } from "@nodegui/nodegui/dist/lib/core/Component";
 
 /**
@@ -36,7 +34,7 @@ export class SpriteSheetEditor extends BaseInterface {
 
 		// Configure scaling event listener.
 		this.window.addEventListener(WidgetEventTypes.Resize, () => {
-			this.#scaleImage();
+			scale_image(this);
 		});
 	}
 
@@ -86,20 +84,9 @@ export class SpriteSheetEditor extends BaseInterface {
 		});
 	}
 
-	#scaleImage(): void {
-		if (this.is_qimage_defined(this.widgets.image)) {
-			// Scale image to manageable size and store as a scaled_image file.
-			this.widgets.scaled_image = this.widgets.image.scaled(
-				this.widgets.image_label.width(),
-				this.widgets.image_label.height(),
-				AspectRatioMode.KeepAspectRatio,
-				TransformationMode.FastTransformation
-			);
-		}
-	}
-
 	load_tileset(image_url: string): void {
 		this.widgets.image.load(image_url);
-		this.#scaleImage();
+		scale_image(this);
+		this.widgets.image_label.update();
 	}
 }
