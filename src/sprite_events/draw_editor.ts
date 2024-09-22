@@ -1,7 +1,5 @@
-import { QPainter, QColor } from "@nodegui/nodegui";
-import { Area } from "data_structures/data_structures";
+import { QPainter } from "@nodegui/nodegui";
 import { SpriteSheetEditor } from "interface/interface";
-import events from "sprite_events/sprite_events";
 
 /**
  * Handles the drawing of the frame editor.

@@ -1,4 +1,4 @@
-import { QLabel, QPainter, WidgetEventTypes } from "@nodegui/nodegui";
+import { QLabel, WidgetEventTypes } from "@nodegui/nodegui";
 import { SpriteSheetEditor } from "interface/interface";
 import events from "sprite_events/sprite_events";
 
