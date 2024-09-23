@@ -69,8 +69,7 @@ export class SpriteSheetEditorWidgets {
 		const image_label = new QLabel();
 		const image = new QPixmap();
 
-		image_label.setMinimumWidth(800);
-		image_label.setMinimumHeight(600);
+		image_label.setFixedSize(800, 600);
 		image_label.setObjectName("image_label");
 
 		return [image_label, image, new QPixmap()];

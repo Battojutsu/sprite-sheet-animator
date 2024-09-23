@@ -27,7 +27,7 @@ export function draw_frame_editor(frame_editor: FrameEditor) {
 			let x = frame_i.s_coord.x / frame_i.area.width;
 			let y = frame_i.s_coord.y / frame_i.area.height;
 
-			painter.drawPixmap(i * width, 0, editor.widgets.scaled_image, x * editor.area.width, y * editor.area.height, editor.area.width, editor.area.height )
+			painter.drawPixmap(i * width, 0, editor.widgets.scaled_image, x * editor.area.width, y * editor.area.height, editor.area.width, editor.area.height);
 		} else {
 			painter.drawRect(i * width, 0, i * width, height);
 		}

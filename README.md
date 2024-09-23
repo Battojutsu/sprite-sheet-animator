@@ -13,7 +13,7 @@ This is meant to configure an animation based on a sprite sheet. Then save the i
 -   [x] select tiles to put in animation
 -   [x] add time in between frames
 -   [x] allow frames to be tagged
--   [] rearrange frames
+-   [x] rearrange frames
 -   [] export animation information to a json data structure
 -   [] preview animation in tool
 
